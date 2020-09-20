@@ -1,0 +1,28 @@
+---
+- hosts: docker-hosts
+  tasks:
+  - name: Install required system packages
+    apt: name={{ item }} state=latest update_cache=yes
+    loop:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/debian buster stable
+      state: present
+
+  - name: Update apt and install docker
+    apt: update_cache=yes name={{ item }} state=latest
+    loop:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
