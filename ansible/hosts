@@ -1,2 +1,5 @@
+[all]
+cyanic.xyz
+
 [docker-hosts]
-www.cyanic.xyz ansible_user=root
+cyanic.xyz

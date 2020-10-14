@@ -27,6 +27,14 @@ resource "hetznerdns_record" "mail" {
   ttl = 60
 }
 
+resource "hetznerdns_record" "nc" {
+  zone_id = hetznerdns_zone.default.id
+  name = "nc"
+  type = "A"
+  value = hcloud_floating_ip.main.ip_address
+  ttl = 60
+}
+
 resource "hetznerdns_record" "autodiscover" {
   zone_id = hetznerdns_zone.default.id
   name = "autodiscover"
@@ -51,6 +59,14 @@ resource "hetznerdns_record" "mx" {
   ttl = 60
 }
 
+resource "hetznerdns_record" "mail_spf" {
+  zone_id = hetznerdns_zone.default.id
+  name = "mail"
+  type = "TXT"
+  value = "v=spf1 redirect:cyanic.xyz -all"
+  ttl = 60
+}
+
 resource "hetznerdns_record" "spf" {
   zone_id = hetznerdns_zone.default.id
   name = "@"
@@ -66,4 +82,45 @@ resource "hetznerdns_record" "dmarc" {
   value = "v=DMARC1; p=reject; rua=mailto:mailauth-reports@cyanic.xyz"
   ttl = 60
 }
+
+resource "hetznerdns_record" "mg_spf" {
+  zone_id = hetznerdns_zone.default.id
+  name = "mg"
+  type = "TXT"
+  value = "v=spf1 include:eu.mailgun.org ~all" 
+  ttl = 60
+}
+
+resource "hetznerdns_record" "mg_dkim" {
+  zone_id = hetznerdns_zone.default.id
+  name = "mta._domainkey.mg"
+  type = "TXT"
+  value = "k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA146Ds1TrDUUbRC+dU1JH6rwbB6VAhK6Ee1Kx1vkEBC93JRcL9Rq3jJ83jSVpw6vkrF5zlGmTyKf5wsGet99rMM2m4tJXy3sME5xL2QHtcmfbSQ4MqYIoaLVgCT7gQKNzYGfBv0g9bVoOz9X+zszZ9nX0g23UbXlwitiCNmtKgoxsye3/8UqwQxjoS2T16uCF2COjWABkNVaBQylkFtd/+PJn8xje06+mrgE6WO0/2Q9MDH3JNlP00HmJ0AmkSwf1cDyWNKVHQJklxcAHvYrHxSDgMG52IVEi0NwyeG/Rm9Gu7FL3j8CLqtzeP6qii/BLs0Yx395RfrL7R1X9ZePF5QIDAQAB"
+  ttl = 60
+}
+
+resource "hetznerdns_record" "mg_cname" {
+  zone_id = hetznerdns_zone.default.id
+  name = "email.mg"
+  type = "CNAME"
+  value = "eu.mailgun.org"
+  ttl = 60
+}
+
+resource "hetznerdns_record" "dkim" {
+  zone_id = hetznerdns_zone.default.id
+  name = "mta._domainkey"
+  type = "TXT"
+  value = "v=DKIM1;k=rsa;t=s;s=email;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzDZUj/R+ZV8oIdxo50coRljPvd8NRfNK2d2oikcClF9bdnnRO5NUsSN7kPO0AUQGOs3OVi6bqeBmADw0iz0gP5Jk0xlo1tQcY8yVt2sgln0tg0XjMDEgO/HbwGlXiV9M0fCPSkPCbtOrLFFSISsAJ/buOsGu6sRWE7JyjVx7l6P8Kg8UqXlyghpcFakei9u1w9PhjAANPJORoNNzmzohRuxyc64NKtrhlGZP9Iw2fkpAyJ4r/P4P06nAHOZxoRG7r4Z0nT11I/khUEiDzyxqh0PNMMCRi8dQooYcLv0xtgnzSVsVSrdTRPs4XC7FKC+f6AgShqujN2dOzeLmUiag8wIDAQAB" 
+  ttl = 60
+}
+
+resource "hetznerdns_record" "google_postmaster" {
+  zone_id = hetznerdns_zone.default.id
+  name = "@"
+  type = "TXT"
+  value = "google-site-verification=2aWtkXQOdelc05GM5jLoKYP38bP8VQT9qyzK0TGjpmg"
+  ttl = 60
+}
+
 

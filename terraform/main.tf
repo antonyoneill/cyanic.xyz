@@ -40,5 +40,5 @@ resource "hcloud_ssh_key" "default" {
 resource "hcloud_rdns" "cyanic" {
   floating_ip_id = hcloud_floating_ip.main.id
   ip_address = hcloud_floating_ip.main.ip_address
-  dns_ptr = "cyanic.xyz"
+  dns_ptr = "mail.cyanic.xyz"
 }
