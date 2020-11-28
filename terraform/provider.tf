@@ -21,3 +21,7 @@ provider "hcloud" {
 provider "hetznerdns" {
   apitoken = var.hetzner_dns_token
 }
+
+provider "aws" {
+  region = "eu-west-2"
+}
