@@ -161,3 +161,39 @@ resource "hetznerdns_record" "uk_co_antweb_keybase" {
   ttl = 60
 }
 
+resource "hetznerdns_zone" "tech_antonyoneill" {
+  name = "antonyoneill.tech"
+  ttl = 3600
+}
+
+resource "hetznerdns_record" "tech_antonyoneill_keybase" {
+  zone_id = hetznerdns_zone.tech_antonyoneill.id
+  name = "@"
+  type = "TXT"
+  value = "keybase-site-verification=DGkaiNqi92eSBGIDeaqYZ-FcHNSTYGbur2HKpQWaMqo"
+  ttl = 60
+}
+
+resource "hetznerdns_record" "tech_antonyoneill_dmarc" {
+  zone_id = hetznerdns_zone.tech_antonyoneill.id
+  name = "_dmarc"
+  type = "TXT"
+  value = "v=DMARC1; p=reject; rua=mailto:mailauth-reports@cyanic.xyz"
+  ttl = 60
+}
+
+resource "hetznerdns_record" "tech_antonyoneill_mx" {
+  zone_id = hetznerdns_zone.tech_antonyoneill.id
+  name = "@"
+  type = "MX"
+  value = "10 mail.cyanic.xyz."
+  ttl = 60
+}
+
+resource "hetznerdns_record" "tech_antonyoneill_spf" {
+  zone_id = hetznerdns_zone.tech_antonyoneill.id
+  name = "@"
+  type = "TXT"
+  value = "v=spf1 redirect:cyanic.xyz -all"
+  ttl = 60
+}
