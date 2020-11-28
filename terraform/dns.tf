@@ -152,3 +152,12 @@ resource "hetznerdns_record" "uk_co_antweb_spf" {
   value = "v=spf1 redirect:cyanic.xyz -all"
   ttl = 60
 }
+
+resource "hetznerdns_record" "uk_co_antweb_keybase" {
+  zone_id = hetznerdns_zone.uk_co_antweb.id
+  name = "@"
+  type = "TXT"
+  value = "keybase-site-verification=tw3M7eJ24uxlQZKdrrLiXA4sgtiZLiCPG0GLZuK2wcg"
+  ttl = 60
+}
+
