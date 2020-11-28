@@ -124,3 +124,31 @@ resource "hetznerdns_record" "xyz_cyanic_google_postmaster" {
 }
 
 
+resource "hetznerdns_zone" "uk_co_antweb" {
+  name = "ant-web.co.uk"
+  ttl = 3600
+}
+
+resource "hetznerdns_record" "uk_co_antweb_dmarc" {
+  zone_id = hetznerdns_zone.uk_co_antweb.id
+  name = "_dmarc"
+  type = "TXT"
+  value = "v=DMARC1; p=reject; rua=mailto:mailauth-reports@cyanic.xyz"
+  ttl = 60
+}
+
+resource "hetznerdns_record" "uk_co_antweb_mx" {
+  zone_id = hetznerdns_zone.uk_co_antweb.id
+  name = "@"
+  type = "MX"
+  value = "10 mail.cyanic.xyz."
+  ttl = 60
+}
+
+resource "hetznerdns_record" "uk_co_antweb_spf" {
+  zone_id = hetznerdns_zone.uk_co_antweb.id
+  name = "@"
+  type = "TXT"
+  value = "v=spf1 redirect:cyanic.xyz -all"
+  ttl = 60
+}
