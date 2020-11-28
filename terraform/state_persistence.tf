@@ -14,3 +14,11 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 
+terraform {
+  backend "s3" {
+    bucket = "cyanic-terraform-state"
+    key = "terraform.tfstate"
+    region = "eu-west-2"
+
+  }
+}
