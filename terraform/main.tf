@@ -13,7 +13,7 @@ resource "hcloud_network_subnet" "default" {
 resource "hcloud_server" "cyanic" {
   name = "cyanic"
   image = "debian-10"
-  server_type = "cx11"
+  server_type = "cx31"
   ssh_keys = [ hcloud_ssh_key.default.id ]
 }
 
