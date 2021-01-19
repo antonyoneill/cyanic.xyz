@@ -11,6 +11,14 @@ resource "hetznerdns_record" "xyz_cyanic" {
   ttl = 60
 }
 
+resource "hetznerdns_record" "xyz_cyanic_wildcard" {
+  zone_id = hetznerdns_zone.xyz_cyanic.id
+  name = "*"
+  type = "A"
+  value = hcloud_floating_ip.main.ip_address
+  ttl = 60
+}
+
 resource "hetznerdns_record" "xyz_cyanic_www" {
   zone_id = hetznerdns_zone.xyz_cyanic.id
   name = "www"
@@ -63,7 +71,7 @@ resource "hetznerdns_record" "xyz_cyanic_mail_spf" {
   zone_id = hetznerdns_zone.xyz_cyanic.id
   name = "mail"
   type = "TXT"
-  value = "v=spf1 redirect:cyanic.xyz -all"
+  value = "v=spf1 redirect=cyanic.xyz"
   ttl = 60
 }
 
@@ -145,11 +153,19 @@ resource "hetznerdns_record" "uk_co_antweb_mx" {
   ttl = 60
 }
 
+resource "hetznerdns_record" "uk_co_antweb_dkim" {
+  zone_id = hetznerdns_zone.uk_co_antweb.id
+  name = "cyanic._domainkey"
+  type = "TXT"
+  value = "v=DKIM1;k=rsa;t=s;s=email;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5RKr9lFAvIylPPkqEsbXrQFoa14CZ5nWbJOy5k4OXSnnHEkkyj7JJjmeL1bUAtRsmeJitjfYSs1CTpyu/tf5f1PvqNQJZlgTYyo5gy1jAbjNHqfgcn5BpVE/SIUq55gghPf9ek9TWE13lcKvSWK47Ea2lznbGLm10yEMKrbfDICRNu0UlOhkMQaGJ0GGJavV45NDRvgtVxu/sC+/g3DXu2K6fq3CCm3fGEDc4N8UbvoG/1/7F2LdRyBQ9o/GKX/ozi1inJbDPDUXEL0wblrh6RdkTlEWNDj5F3s9WqOgKa36sRQxQbVoClulCLB4/P3YzimR36tJjpYOeuXJhc47HQIDAQAB"
+  ttl = 60
+}
+
 resource "hetznerdns_record" "uk_co_antweb_spf" {
   zone_id = hetznerdns_zone.uk_co_antweb.id
   name = "@"
   type = "TXT"
-  value = "v=spf1 redirect:cyanic.xyz -all"
+  value = "v=spf1 redirect=cyanic.xyz"
   ttl = 60
 }
 
@@ -194,6 +210,14 @@ resource "hetznerdns_record" "tech_antonyoneill_spf" {
   zone_id = hetznerdns_zone.tech_antonyoneill.id
   name = "@"
   type = "TXT"
-  value = "v=spf1 redirect:cyanic.xyz -all"
+  value = "v=spf1 redirect=cyanic.xyz"
+  ttl = 60
+}
+
+resource "hetznerdns_record" "tech_antonyoneill_dkim" {
+  zone_id = hetznerdns_zone.tech_antonyoneill.id
+  name = "cyanic._domainkey"
+  type = "TXT"
+  value = "v=DKIM1;k=rsa;t=s;s=email;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5RKr9lFAvIylPPkqEsbXrQFoa14CZ5nWbJOy5k4OXSnnHEkkyj7JJjmeL1bUAtRsmeJitjfYSs1CTpyu/tf5f1PvqNQJZlgTYyo5gy1jAbjNHqfgcn5BpVE/SIUq55gghPf9ek9TWE13lcKvSWK47Ea2lznbGLm10yEMKrbfDICRNu0UlOhkMQaGJ0GGJavV45NDRvgtVxu/sC+/g3DXu2K6fq3CCm3fGEDc4N8UbvoG/1/7F2LdRyBQ9o/GKX/ozi1inJbDPDUXEL0wblrh6RdkTlEWNDj5F3s9WqOgKa36sRQxQbVoClulCLB4/P3YzimR36tJjpYOeuXJhc47HQIDAQAB"
   ttl = 60
 }
